@@ -1,10 +1,3 @@
-/*
- * Rock Paper Scissors code foor assignment
- *
- * @author  Andi Cucka
- * @version 1.0
- * @since   2024-02-22
- */
 import * as readline from 'readline';
 
 const rl = readline.createInterface({
@@ -12,6 +5,8 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
+// Enum representing the choices in the game,enumeration, is a data type in 
+// TypeScript that allows you to define a set of named constants
 enum Choice {
     ROCK = "rock",
     PAPER = "paper",
@@ -52,14 +47,16 @@ function determineWinner(userChoice: Choice, computerChoice: Choice): string {
     }
 }
 
-async function playGame() {
-    console.log("Let's play Rock, Paper, Scissors!");
-    const userChoice = await getUserChoice();
-    const computerChoice = getComputerChoice();
-    console.log(`You chose: ${userChoice}`);
-    console.log(`Computer chose: ${computerChoice}`);
-    console.log(determineWinner(userChoice, computerChoice));
-    rl.close();
+// Function to initiate and play the game
+function playGame() {
+    console.log("Let's play Rock, Paper, Scissors!"); // Start the game
+    getUserChoice().then(userChoice => {
+        const computerChoice = getComputerChoice();
+        console.log(`You chose: ${userChoice}`);
+        console.log(`Computer chose: ${computerChoice}`);
+        console.log(determineWinner(userChoice, computerChoice));
+        rl.close();
+    });
 }
 
-playGame();
+playGame(); // Start the game
