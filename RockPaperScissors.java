@@ -1,80 +1,65 @@
-/*
- * Rock Paper Scissor assignment 
- *
- * @author  Andi Cucka
- * @version 1.0
- * @since   2024-02-22
- */
-import java.util.Scanner;
-import java.util.Random;
+// This is the rock-paper-scissors game
+// Author: Andi Cucka
+// Version: 1.0
+// Date: 2024-03-05
 
-public class RockPaperScissors {
-    enum Choice {
-        ROCK,
-        PAPER,
-        SCISSORS
-    }
+// Define a function to simulate the rock-paper-scissors game
+function rockPaperScissors(userInputString) {
+  // This function simulates a game of "rock-paper-scissors"
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Random random = new Random();
+  // Define an array containing the options: rock, paper, scissors
+  const computerOptions = ["rock", "paper", "scissors"];
+  
+  // Generate a random choice for the computer
+  const computerChoice = computerOptions[Math.floor(Math.random() * 3)];
 
-        System.out.println("Let's play Rock, Paper, Scissors!");
+  let output = "";
 
-        System.out.print("Enter your choice (rock, paper, scissors): ");
-        String userInput = scanner.nextLine().trim().toLowerCase();
-        Choice userChoice;
-        switch (userInput) {
-            case "rock":
-                userChoice = Choice.ROCK;
-                break;
-            case "paper":
-                userChoice = Choice.PAPER;
-                break;
-            case "scissors":
-                userChoice = Choice.SCISSORS;
-                break;
-            default:
-                System.out.println("Invalid choice. Please enter rock, paper, or scissors.");
-                return;
-        }
+  // Output user and computer choices
+  console.log(`You choose: ${userInputString}`);
+  console.log(`The computer choose: ${computerChoice}`);
 
-        Choice computerChoice = getRandomChoice(random);
-
-        System.out.println("You chose: " + userChoice);
-        System.out.println("Computer chose: " + computerChoice);
-
-        String result = determineWinner(userChoice, computerChoice);
-        System.out.println(result);
-
-        scanner.close();
-    }
-
-    private static Choice getRandomChoice(Random random) {
-        int choiceIndex = random.nextInt(3);
-        switch (choiceIndex) {
-            case 0:
-                return Choice.ROCK;
-            case 1:
-                return Choice.PAPER;
-            case 2:
-                return Choice.SCISSORS;
-            default:
-                return Choice.ROCK; // Default should never be reached
-        }
-    }
-
-    private static String determineWinner(Choice userChoice, Choice computerChoice) {
-        if (userChoice == computerChoice) {
-            return "It's a tie!";
-        } else if (
-            (userChoice == Choice.ROCK && computerChoice == Choice.SCISSORS) ||
-            (userChoice == Choice.PAPER && computerChoice == Choice.ROCK) ||
-            (userChoice == Choice.SCISSORS && computerChoice == Choice.PAPER)
-        ) {
-            return "You win!";
+  // Determine the outcome of the game
+  if (userInputString === computerChoice) {
+    output = "You tied.";
+  } else {
+    switch (computerChoice) {
+      case "rock":
+        if (userInputString === "scissors") {
+          output = "You lost...";
         } else {
-            return "Computer wins!";
+          output = "You won!";
         }
+        break;
+      case "paper":
+        if (userInputString === "rock") {
+          output = "You lost...";
+        } else {
+          output = "You won!";
+        }
+        break;
+      case "scissors":
+        if (userInputString === "paper") {
+          output = "You lost...";
+        } else {
+          output = "You won!";
+        }
+        break;
     }
+  }
+  return output;
 }
+
+// Prompt the user for input
+const userInput = prompt("rock, paper, or scissors? (lowercase): ");
+const userInputString = userInput.toLowerCase();
+
+// Check if the input is valid and play the game
+if (userInputString === "rock" || userInputString === "paper" || userInputString === "scissors") {
+  const output = rockPaperScissors(userInputString);
+  console.log(output);
+} else {
+  console.log("Invalid input.");
+}
+
+console.log("\nDone.");
