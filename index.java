@@ -1,65 +1,68 @@
-// This is the rock-paper-scissors game
-// Author: Andi Cucka
-// Version: 1.0
-// Date: 2024-03-05
+/*
+ * This is the rock paper scissors program 
+ *
+ * @author  Andi
+ * @version 1.0
+ * @since   2024-03-05
+ */
 
-// Define a function to simulate the rock-paper-scissors game
-function rockPaperScissors(userInputString) {
-  // This function simulates a game of "rock-paper-scissors"
+import { createPrompt } from 'bun-promptx'
 
-  // Define an array containing the options: rock, paper, scissors
-  const computerOptions = ["rock", "paper", "scissors"];
-  
-  // Generate a random choice for the computer
-  const computerChoice = computerOptions[Math.floor(Math.random() * 3)];
+function rockPaperScissor(userInputString: string) {
+  // this function simulates a game of "rock-paper-scissors"
 
-  let output = "";
+  // computer chooses rock, paper, or scissors
+  const computerOptions: string[] = ["rock", "paper", "scissors"]
+  const computerChoice = computerOptions[Math.floor(Math.random() * 3)]
 
-  // Output user and computer choices
-  console.log(`You choose: ${userInputString}`);
-  console.log(`The computer choose: ${computerChoice}`);
+  let output = ""
 
-  // Determine the outcome of the game
-  if (userInputString === computerChoice) {
-    output = "You tied.";
+  // process
+  console.log(`You choose: ${userInputString}`)
+  console.log(`The computer choose: ${computerChoice}`)
+  if (userInputString == computerChoice) {
+    output = "You tied."
   } else {
     switch (computerChoice) {
       case "rock":
-        if (userInputString === "scissors") {
-          output = "You lost...";
+        if (userInputString == "scissors") {
+          output = "You lost..."
         } else {
-          output = "You won!";
+          output = "You won!"
         }
-        break;
+        break
       case "paper":
-        if (userInputString === "rock") {
-          output = "You lost...";
+        if (userInputString == "rock") {
+          output = "You lost..."
         } else {
-          output = "You won!";
+          output = "You won!"
         }
-        break;
+        break
       case "scissors":
-        if (userInputString === "paper") {
-          output = "You lost...";
+        if (userInputString == "paper") {
+          output = "You lost..."
         } else {
-          output = "You won!";
+          output = "You won!"
         }
-        break;
+        break
     }
   }
-  return output;
+  return output
 }
 
-// Prompt the user for input
-const userInput = prompt("rock, paper, or scissors? (lowercase): ");
-const userInputString = userInput.toLowerCase();
+// input
+const userInput = createPrompt("rock, paper, or scissors?: ")
+const userInputString = userInput.value
 
-// Check if the input is valid and play the game
-if (userInputString === "rock" || userInputString === "paper" || userInputString === "scissors") {
-  const output = rockPaperScissors(userInputString);
-  console.log(output);
+// error check
+if (userInputString == "rock" ||
+   userInputString == "paper" ||
+   userInputString == "scissors"
+) {
+  let output = rockPaperScissor(userInputString)
+  console.log(output)
 } else {
-  console.log("Invalid input.");
+  console.log(`Invalid input.`)
 }
 
-console.log("\nDone.");
+console.log("\nDone.")
