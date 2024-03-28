@@ -1,68 +1,106 @@
 /*
- * This is the rock paper scissors program 
+ * This is the rock paper scissors game
  *
- * @author  Andi
+ * @author  Andi Cucka
  * @version 1.0
- * @since   2024-03-05
+ * @since   2024-03-06
  */
 
-import { createPrompt } from 'bun-promptx'
+import java.util.Random;
+import java.util.Scanner;
 
-function rockPaperScissor(userInputString: string) {
-  // this function simulates a game of "rock-paper-scissors"
 
-  // computer chooses rock, paper, or scissors
-  const computerOptions: string[] = ["rock", "paper", "scissors"]
-  const computerChoice = computerOptions[Math.floor(Math.random() * 3)]
+// This is the standard Rock Paper Scissors program.
+final class RockPaperScissors {
 
-  let output = ""
-
-  // process
-  console.log(`You choose: ${userInputString}`)
-  console.log(`The computer choose: ${computerChoice}`)
-  if (userInputString == computerChoice) {
-    output = "You tied."
-  } else {
-    switch (computerChoice) {
-      case "rock":
-        if (userInputString == "scissors") {
-          output = "You lost..."
-        } else {
-          output = "You won!"
-        }
-        break
-      case "paper":
-        if (userInputString == "rock") {
-          output = "You lost..."
-        } else {
-          output = "You won!"
-        }
-        break
-      case "scissors":
-        if (userInputString == "paper") {
-          output = "You lost..."
-        } else {
-          output = "You won!"
-        }
-        break
+    // Prevents instantiation of the RockPaperScissors class
+    // by throwing an IllegalStateException if attempted.
+    private RockPaperScissors() {
+        throw new IllegalStateException("Cannot be instantiated");
     }
-  }
-  return output
+
+    // Simulates a game of "rock-paper-scissors" based on
+    // the user's input and returns the result as a string.
+    public static String rockPaperScissor(String userInputString) {
+
+        // variables
+        final String rockString = "rock";
+        final String paperString = "paper";
+        final String scissorsString = "scissors";
+        final String winOutcome = "You won!";
+        final String lostOutcome = "You lost...";
+        final String tiedOutcome = "You tied.";
+        final int randnumberMax = 3;
+        String output = "";
+
+        // Computer chooses rock, paper, or scissors
+        final String[] computerOptions =
+            {rockString, paperString, scissorsString};
+        final Random random = new Random();
+        final String computerChoice =
+            computerOptions[random.nextInt(randnumberMax)];
+
+        // Process
+        System.out.println("You choose: " + userInputString);
+        System.out.println("The computer choose: " + computerChoice);
+        if (userInputString.equals(computerChoice)) {
+            output = tiedOutcome;
+        } else {
+            switch (computerChoice) {
+                case rockString:
+                    if (userInputString.equals(scissorsString)) {
+                        output = lostOutcome;
+                    } else {
+                        output = winOutcome;
+                    }
+                    break;
+                case paperString:
+                    if (userInputString.equals(rockString)) {
+                        output = lostOutcome;
+                    } else {
+                        output = winOutcome;
+                    }
+                    break;
+                case scissorsString:
+                    if (userInputString.equals(paperString)) {
+                        output = lostOutcome;
+                    } else {
+                        output = winOutcome;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        return output;
+    }
+
+    /**
+    * The starting main() function.
+    *
+    * @param args No args will be used
+    */
+    public static void main(String[] args) {
+        // variables
+        final String rockString = "rock";
+        final String paperString = "paper";
+        final String scissorsString = "scissors";
+
+        // Input
+        final Scanner scanner = new Scanner(System.in);
+        System.out.print("rock, paper, or scissors?: ");
+        final String userInputString = scanner.nextLine().trim().toLowerCase();
+
+        // Error check
+        if (userInputString.equals(rockString)
+            || userInputString.equals(paperString)
+            || userInputString.equals(scissorsString)) {
+            final String output = rockPaperScissor(userInputString);
+            System.out.println(output);
+        } else {
+            System.out.println("Invalid input.");
+        }
+
+        System.out.println("\nDone.");
+    }
 }
-
-// input
-const userInput = createPrompt("rock, paper, or scissors?: ")
-const userInputString = userInput.value
-
-// error check
-if (userInputString == "rock" ||
-   userInputString == "paper" ||
-   userInputString == "scissors"
-) {
-  let output = rockPaperScissor(userInputString)
-  console.log(output)
-} else {
-  console.log(`Invalid input.`)
-}
-
-console.log("\nDone.")
